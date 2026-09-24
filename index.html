@@ -1,0 +1,1919 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="andorius" data-mode="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>How Do We Want to Live? — Life Alignment Questionnaire</title>
+<style>
+/* ===== elianKit themes.css (inlined) ===== */
+:root,
+[data-theme="andorius"] {
+  --el-bg: #f7f7f8;
+  --el-surface: #ffffff;
+  --el-ink: #0b0c0e;
+  --el-ink-soft: #55565a;
+  --el-ink-faint: #8b8d92;
+  --el-rule: rgba(11, 12, 14, 0.12);
+  --el-accent: #4FD0E6;
+  --el-band: #4FD0E6;
+  --el-good: #3f7d57;
+  --el-warn: #d8a24a;
+  --el-bad: #b23b2e;
+  --el-font-sans: "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --el-font-mono: "SF Mono", ui-monospace, monospace;
+  --el-space-1: 4px;
+  --el-space-2: 8px;
+  --el-space-3: 12px;
+  --el-space-4: 16px;
+  --el-space-6: 24px;
+  --el-space-8: 32px;
+  --el-radius: 8px;
+  --el-shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.08);
+}
+[data-theme="andorius"][data-mode="dark"],
+[data-theme="andorius-dark"] {
+  --el-bg: #000000;
+  --el-surface: #111318;
+  --el-ink: #EEF0F4;
+  --el-ink-soft: #9CA3AF;
+  --el-ink-faint: #6D6F77;
+  --el-rule: rgba(79, 208, 230, 0.13);
+  --el-accent: #4FD0E6;
+  --el-band: #4FD0E6;
+}
+[data-theme="notadoctor"] {
+  --el-bg: #0e0e10;
+  --el-surface: #16171a;
+  --el-ink: #e9e9ec;
+  --el-ink-soft: #b8b9be;
+  --el-ink-faint: #6d6f77;
+  --el-rule: rgba(233, 233, 236, 0.08);
+  --el-accent: #b23b2e;
+  --el-band: #2b6cb0;
+  --el-good: #3f7d57;
+  --el-warn: #d8a24a;
+  --el-bad: #b23b2e;
+  --el-font-sans: "Futura", "Avenir Next", sans-serif;
+  --el-font-mono: "SF Mono", ui-monospace, monospace;
+  --el-space-1: 4px;
+  --el-space-2: 8px;
+  --el-space-3: 12px;
+  --el-space-4: 16px;
+  --el-space-6: 24px;
+  --el-space-8: 32px;
+  --el-radius: 4px;
+  --el-shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.35);
+}
+
+/* ===== App layout ===== */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--el-font-sans);
+  background: var(--el-bg);
+  color: var(--el-ink);
+  line-height: 1.5;
+  min-height: 100vh;
+}
+a { color: var(--el-accent); }
+
+.app-shell {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 0;
+  max-width: 1100px;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+@media (max-width: 860px) {
+  .app-shell { grid-template-columns: 1fr; }
+  .side-nav { display: none; }
+  .mobile-pills { display: flex !important; }
+}
+
+/* Top bar */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: var(--el-surface);
+  border-bottom: 1px solid var(--el-rule);
+  box-shadow: var(--el-shadow-soft);
+  padding: var(--el-space-3) var(--el-space-4);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--el-space-2);
+}
+.topbar h1 {
+  font-size: 1.05rem;
+  margin: 0;
+  flex: 1 1 auto;
+  min-width: 140px;
+}
+.topbar .actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--el-space-2);
+  align-items: center;
+}
+.progress-wrap {
+  width: 100%;
+  margin-top: var(--el-space-2);
+}
+.progress-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: var(--el-ink-soft);
+  margin-bottom: var(--el-space-1);
+}
+.progress-bar {
+  height: 6px;
+  background: var(--el-rule);
+  border-radius: var(--el-radius);
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--el-accent);
+  transition: width 0.25s ease;
+  border-radius: var(--el-radius);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--el-space-1);
+  padding: var(--el-space-2) var(--el-space-3);
+  border: 1px solid var(--el-rule);
+  border-radius: var(--el-radius);
+  background: var(--el-surface);
+  color: var(--el-ink);
+  font-family: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+.btn:hover { border-color: var(--el-accent); }
+.btn-primary {
+  background: var(--el-accent);
+  color: var(--el-ink);
+  border-color: var(--el-accent);
+  font-weight: 600;
+}
+[data-mode="dark"] .btn-primary { color: #0b0c0e; }
+.btn-ghost { background: transparent; }
+.btn-icon {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--el-accent);
+  outline-offset: 2px;
+}
+
+/* Side nav */
+.side-nav {
+  position: sticky;
+  top: 88px;
+  align-self: start;
+  padding: var(--el-space-4);
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+}
+.side-nav nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--el-space-1);
+}
+.side-nav a {
+  text-decoration: none;
+  color: var(--el-ink-soft);
+  font-size: 0.82rem;
+  padding: var(--el-space-2) var(--el-space-3);
+  border-radius: var(--el-radius);
+  border: 1px solid transparent;
+}
+.side-nav a:hover, .side-nav a.active {
+  color: var(--el-ink);
+  background: var(--el-surface);
+  border-color: var(--el-rule);
+}
+.side-nav a.active { border-color: var(--el-accent); color: var(--el-accent); }
+.side-nav .nav-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--el-ink-faint);
+  margin: var(--el-space-2) 0 var(--el-space-1);
+  padding: 0 var(--el-space-3);
+}
+
+.mobile-pills {
+  display: none;
+  flex-wrap: nowrap;
+  gap: var(--el-space-2);
+  overflow-x: auto;
+  padding: var(--el-space-3) var(--el-space-4);
+  background: var(--el-bg);
+  border-bottom: 1px solid var(--el-rule);
+  -webkit-overflow-scrolling: touch;
+}
+.mobile-pills a {
+  flex: 0 0 auto;
+  text-decoration: none;
+  color: var(--el-ink-soft);
+  font-size: 0.78rem;
+  padding: var(--el-space-1) var(--el-space-3);
+  border-radius: 999px;
+  border: 1px solid var(--el-rule);
+  background: var(--el-surface);
+  white-space: nowrap;
+}
+.mobile-pills a.active {
+  border-color: var(--el-accent);
+  color: var(--el-ink);
+  background: color-mix(in srgb, var(--el-accent) 22%, var(--el-surface));
+}
+
+.main {
+  padding: var(--el-space-4) var(--el-space-4) var(--el-space-8);
+  max-width: 760px;
+}
+
+.hero {
+  background: var(--el-surface);
+  border: 1px solid var(--el-rule);
+  border-radius: var(--el-radius);
+  box-shadow: var(--el-shadow-soft);
+  padding: var(--el-space-6);
+  margin-bottom: var(--el-space-6);
+}
+.hero h2 {
+  margin: 0 0 var(--el-space-2);
+  font-size: 1.6rem;
+  letter-spacing: -0.02em;
+}
+.hero .subtitle {
+  color: var(--el-ink-soft);
+  margin: 0 0 var(--el-space-4);
+  font-size: 1rem;
+}
+.hero .intro {
+  color: var(--el-ink-soft);
+  font-size: 0.95rem;
+  margin: 0 0 var(--el-space-4);
+}
+.theme-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  padding: var(--el-space-1) var(--el-space-3);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--el-accent) 18%, transparent);
+  color: var(--el-ink);
+  border: 1px solid color-mix(in srgb, var(--el-accent) 40%, transparent);
+  margin-bottom: var(--el-space-4);
+}
+
+.meta-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--el-space-3);
+}
+@media (max-width: 560px) {
+  .meta-grid { grid-template-columns: 1fr; }
+}
+.field label {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--el-ink-soft);
+  margin-bottom: var(--el-space-1);
+}
+.field input[type="text"],
+.field input[type="date"],
+.q-card textarea {
+  width: 100%;
+  padding: var(--el-space-2) var(--el-space-3);
+  border: 1px solid var(--el-rule);
+  border-radius: var(--el-radius);
+  background: var(--el-bg);
+  color: var(--el-ink);
+  font-family: inherit;
+  font-size: 0.95rem;
+}
+.q-card textarea {
+  min-height: 88px;
+  resize: vertical;
+}
+.checks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--el-space-3);
+  margin-top: var(--el-space-3);
+  font-size: 0.9rem;
+  color: var(--el-ink-soft);
+}
+.checks label { display: inline-flex; align-items: center; gap: var(--el-space-2); cursor: pointer; }
+
+.section {
+  margin-bottom: var(--el-space-8);
+  scroll-margin-top: 120px;
+}
+.section-head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--el-space-3);
+  margin-bottom: var(--el-space-4);
+  padding-bottom: var(--el-space-2);
+  border-bottom: 1px solid var(--el-rule);
+}
+.section-num {
+  font-family: var(--el-font-mono);
+  font-size: 0.85rem;
+  color: var(--el-accent);
+  font-weight: 700;
+}
+.section-head h3 {
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+.q-card {
+  background: var(--el-surface);
+  border: 1px solid var(--el-rule);
+  border-radius: var(--el-radius);
+  padding: var(--el-space-4);
+  margin-bottom: var(--el-space-4);
+  box-shadow: var(--el-shadow-soft);
+}
+.q-num {
+  font-family: var(--el-font-mono);
+  font-size: 0.75rem;
+  color: var(--el-accent);
+  font-weight: 700;
+  margin-bottom: var(--el-space-1);
+}
+.q-prompt {
+  font-size: 0.98rem;
+  margin: 0 0 var(--el-space-4);
+  font-weight: 500;
+}
+.dual {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--el-space-4);
+}
+@media (max-width: 640px) {
+  .dual { grid-template-columns: 1fr; }
+}
+.partner-col {
+  padding: var(--el-space-3);
+  border-radius: var(--el-radius);
+  border: 1px solid var(--el-rule);
+  background: var(--el-bg);
+}
+.partner-col.pa {
+  border-top: 3px solid var(--el-accent);
+}
+.partner-col.pb {
+  border-top: 3px solid var(--el-band);
+  /* differentiate B with warm/warn tint when band==accent */
+  border-top-color: var(--el-warn);
+  background: color-mix(in srgb, var(--el-warn) 6%, var(--el-bg));
+}
+.partner-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--el-ink-faint);
+  margin-bottom: var(--el-space-2);
+  font-weight: 600;
+}
+.partner-col.pa .partner-label { color: var(--el-accent); }
+.partner-col.pb .partner-label { color: var(--el-warn); }
+
+.privacy-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--el-space-2);
+  margin-top: var(--el-space-3);
+}
+.privacy-row .btn[aria-pressed="true"] {
+  background: var(--el-ink);
+  color: var(--el-bg);
+  border-color: var(--el-ink);
+}
+/* Solid cover — no blur (blur leaked selected colors) */
+body.partner-a-hidden .partner-col.pa .partner-answers,
+body.partner-b-hidden .partner-col.pb .partner-answers {
+  position: relative;
+  min-height: 48px;
+}
+body.partner-a-hidden .partner-col.pa .partner-answers > *,
+body.partner-b-hidden .partner-col.pb .partner-answers > * {
+  visibility: hidden;
+}
+body.partner-a-hidden .partner-col.pa .partner-answers::after,
+body.partner-b-hidden .partner-col.pb .partner-answers::after {
+  content: attr(data-hidden-label);
+  visibility: visible;
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--el-space-3);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--el-ink-faint);
+  background: var(--el-surface);
+  border: 1px dashed var(--el-rule);
+  border-radius: var(--el-radius);
+  pointer-events: auto;
+}
+@media print {
+  .privacy-row { display: none !important; }
+  body.partner-a-hidden .partner-col.pa .partner-answers > *,
+  body.partner-b-hidden .partner-col.pb .partner-answers > * {
+    visibility: visible !important;
+  }
+  body.partner-a-hidden .partner-col.pa .partner-answers::after,
+  body.partner-b-hidden .partner-col.pb .partner-answers::after {
+    display: none !important;
+  }
+}
+
+
+
+
+/* Rate buttons */
+.rate-group {
+  display: flex;
+  gap: var(--el-space-1);
+  flex-wrap: wrap;
+}
+.rate-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--el-radius);
+  border: 1px solid var(--el-rule);
+  background: var(--el-surface);
+  color: var(--el-ink);
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.rate-btn:hover { border-color: var(--el-accent); }
+.rate-btn.selected {
+  background: var(--el-accent);
+  border-color: var(--el-accent);
+  color: #0b0c0e;
+}
+.partner-col.pb .rate-btn.selected {
+  background: var(--el-warn);
+  border-color: var(--el-warn);
+  color: #0b0c0e;
+}
+.rate-hint {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  color: var(--el-ink-faint);
+  margin-top: var(--el-space-1);
+  max-width: 220px;
+}
+
+/* Pole slider */
+.pole {
+  display: flex;
+  flex-direction: column;
+  gap: var(--el-space-2);
+}
+.pole-ends {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--el-ink-soft);
+  gap: var(--el-space-2);
+}
+.pole-ends span { max-width: 46%; }
+.pole-ends span:last-child { text-align: right; }
+.pole input[type="range"] {
+  width: 100%;
+  accent-color: var(--el-accent);
+  cursor: pointer;
+}
+.partner-col.pb input[type="range"] { accent-color: var(--el-warn); }
+.pole-val {
+  font-family: var(--el-font-mono);
+  font-size: 0.8rem;
+  color: var(--el-ink-faint);
+  text-align: center;
+}
+
+/* Choice chips */
+.choice-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--el-space-2);
+}
+.choice-chip {
+  display: block;
+  position: relative;
+  cursor: pointer;
+}
+.choice-chip input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.choice-chip span {
+  display: block;
+  padding: var(--el-space-2) var(--el-space-3);
+  border: 1px solid var(--el-rule);
+  border-radius: var(--el-radius);
+  background: var(--el-surface);
+  font-size: 0.88rem;
+  transition: all 0.15s;
+}
+.choice-chip:hover span { border-color: var(--el-accent); }
+.choice-chip input:checked + span {
+  border-color: var(--el-accent);
+  background: color-mix(in srgb, var(--el-accent) 20%, var(--el-surface));
+  font-weight: 560;
+}
+.partner-col.pb .choice-chip input:checked + span {
+  border-color: var(--el-warn);
+  background: color-mix(in srgb, var(--el-warn) 18%, var(--el-surface));
+}
+
+.shared-card {
+  background: var(--el-surface);
+  border: 1px solid var(--el-rule);
+  border-radius: var(--el-radius);
+  padding: var(--el-space-4);
+  margin-bottom: var(--el-space-4);
+  box-shadow: var(--el-shadow-soft);
+}
+.shared-card h4 { margin: 0 0 var(--el-space-3); font-size: 0.98rem; }
+
+.footer-note {
+  margin-top: var(--el-space-8);
+  padding: var(--el-space-4);
+  border-top: 1px solid var(--el-rule);
+  color: var(--el-ink-faint);
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+/* Modal */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: color-mix(in srgb, var(--el-ink) 45%, transparent);
+  z-index: 80;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: var(--el-space-4);
+}
+.modal-backdrop.open { display: flex; }
+.modal {
+  background: var(--el-surface);
+  color: var(--el-ink);
+  border-radius: var(--el-radius);
+  box-shadow: var(--el-shadow-soft);
+  border: 1px solid var(--el-rule);
+  max-width: 560px;
+  width: 100%;
+  max-height: 85vh;
+  overflow: auto;
+  padding: var(--el-space-6);
+}
+.modal h3 { margin: 0 0 var(--el-space-3); }
+.modal p { color: var(--el-ink-soft); font-size: 0.95rem; }
+.modal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--el-space-2);
+  margin-top: var(--el-space-4);
+  justify-content: flex-end;
+}
+.gap-list { list-style: none; padding: 0; margin: 0; }
+.gap-list li {
+  padding: var(--el-space-3);
+  border: 1px solid var(--el-rule);
+  border-radius: var(--el-radius);
+  margin-bottom: var(--el-space-2);
+  font-size: 0.9rem;
+}
+.gap-list .delta {
+  font-family: var(--el-font-mono);
+  color: var(--el-warn);
+  font-weight: 700;
+}
+.export-pre {
+  background: var(--el-bg);
+  border: 1px solid var(--el-rule);
+  border-radius: var(--el-radius);
+  padding: var(--el-space-3);
+  font-family: var(--el-font-mono);
+  font-size: 0.72rem;
+  max-height: 240px;
+  overflow: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Toast */
+#toast-root {
+  position: fixed;
+  top: var(--el-space-4);
+  right: var(--el-space-4);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: var(--el-space-2);
+  pointer-events: none;
+}
+.toast {
+  pointer-events: auto;
+  min-width: 220px;
+  max-width: 340px;
+  background: var(--el-surface);
+  color: var(--el-ink);
+  border: 1px solid var(--el-rule);
+  border-left: 3px solid var(--el-accent);
+  border-radius: var(--el-radius);
+  box-shadow: var(--el-shadow-soft);
+  padding: var(--el-space-3) var(--el-space-4);
+  font-size: 0.88rem;
+  animation: toast-in 0.2s ease;
+}
+.toast.success { border-left-color: var(--el-good); }
+.toast.error { border-left-color: var(--el-bad); }
+.toast.warning { border-left-color: var(--el-warn); }
+@keyframes toast-in {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media print {
+  .topbar, .side-nav, .mobile-pills, #toast-root, .modal-backdrop, .btn { display: none !important; }
+  .app-shell { display: block; }
+  .main { max-width: 100%; padding: 0; }
+  .q-card, .hero, .shared-card { box-shadow: none; break-inside: avoid; }
+}
+</style>
+</head>
+<body data-hidden-label="Hidden">
+<div class="topbar">
+  <h1 data-i18n="titleShort">How Do We Want to Live?</h1>
+  <div class="actions">
+    <button type="button" class="btn btn-ghost" id="btn-howto" title="How to use" data-i18n="howto" data-i18n-title="howto">How to use</button>
+    <button type="button" class="btn" id="btn-gaps" data-i18n="showGaps">Show gaps</button>
+    <button type="button" class="btn" id="btn-save" data-i18n="save">Save</button>
+    <button type="button" class="btn" id="btn-load" data-i18n="load">Load</button>
+    <button type="button" class="btn" id="btn-export" data-i18n="export">Export</button>
+    <button type="button" class="btn" id="btn-print" data-i18n="print">Print</button>
+    <button type="button" class="btn" id="btn-reset" data-i18n="reset">Reset</button>
+    <button type="button" class="btn" id="lang-toggle" aria-label="Switch language" title="Switch language">ΕΛ</button>
+    <button type="button" class="btn btn-icon" id="theme-toggle" aria-label="Toggle dark/light theme" title="Toggle theme"></button>
+  </div>
+  <div class="progress-wrap">
+    <div class="progress-meta">
+      <span id="progress-label">0 of 41 answered</span>
+      <span id="progress-pct">0%</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+  </div>
+</div>
+
+<div class="mobile-pills" id="mobile-pills"></div>
+
+<div class="app-shell">
+  <aside class="side-nav">
+    <div class="nav-label" data-i18n="sections">Sections</div>
+    <nav id="side-nav"></nav>
+  </aside>
+
+  <main class="main">
+    <header class="hero" id="top">
+      <span class="theme-tag" data-i18n="themeTag">Farm ↔ Skyscraper · lifestyle polarity</span>
+      <h2 data-i18n="titleShort">How Do We Want to Live?</h2>
+      <p class="subtitle" data-i18n="subtitle">Life Alignment Questionnaire for Couples in Their Forties</p>
+      <p class="intro" data-i18n="intro">Answer alone first (Partner A and Partner B). Then compare. Differences are information, not failure. This is a conversation tool, not therapy.</p>
+      <div class="meta-grid">
+        <div class="field">
+          <label for="partner-a-name" data-i18n="partnerAName">Partner A name</label>
+          <input type="text" id="partner-a-name" name="partnerA" placeholder="Partner A" data-meta data-i18n-placeholder="partnerA" />
+        </div>
+        <div class="field">
+          <label for="partner-b-name" data-i18n="partnerBName">Partner B name</label>
+          <input type="text" id="partner-b-name" name="partnerB" placeholder="Partner B" data-meta data-i18n-placeholder="partnerB" />
+        </div>
+        <div class="field">
+          <label for="q-date" data-i18n="date">Date</label>
+          <input type="date" id="q-date" name="date" data-meta />
+        </div>
+        <div class="field">
+          <label data-i18n="answeredSeparately">Answered separately first?</label>
+          <div class="checks">
+            <label><input type="checkbox" id="sep-yes" data-meta /> <span data-i18n="yes">Yes</span></label>
+            <label><input type="checkbox" id="sep-mostly" data-meta /> <span data-i18n="mostly">Mostly</span></label>
+          </div>
+        </div>
+      </div>
+      <div class="privacy-row">
+        <button type="button" class="btn" id="hide-partner-a" data-hide-partner="a" aria-pressed="false">Hide Partner A answers</button>
+        <button type="button" class="btn" id="hide-partner-b" data-hide-partner="b" aria-pressed="false">Hide Partner B answers</button>
+      </div>
+    </header>
+
+    <div id="sections-root"></div>
+
+    <section class="section" id="sec-reflect" data-section="reflect">
+      <div class="section-head">
+        <span class="section-num" data-i18n="after">After</span>
+        <h3 data-i18n="reflectTitle">Compare — Three reflection prompts</h3>
+      </div>
+      <div class="shared-card">
+        <h4 data-i18n="reflect1">1. Where did we land on the same page without trying?</h4>
+        <textarea id="reflect-1" data-reflect="1" placeholder="Shared answers…" data-i18n-placeholder="reflectPh1"></textarea>
+      </div>
+      <div class="shared-card">
+        <h4 data-i18n="reflect2">2. Where is the biggest farm ↔ skyscraper gap — and what would a “third way” look like?</h4>
+        <textarea id="reflect-2" data-reflect="2" placeholder="Gap + third way…" data-i18n-placeholder="reflectPh2"></textarea>
+      </div>
+      <div class="shared-card">
+        <h4 data-i18n="reflect3">3. What is one small experiment we could try in the next 90 days?</h4>
+        <textarea id="reflect-3" data-reflect="3" placeholder="One small experiment…" data-i18n-placeholder="reflectPh3"></textarea>
+      </div>
+    </section>
+
+    <p class="footer-note" data-i18n="footerNote">Conversation tool only · Not clinical advice · 41 questions / 12 dimensions</p>
+  </main>
+</div>
+
+<div class="modal-backdrop" id="modal-howto" role="dialog" aria-modal="true" aria-labelledby="howto-title">
+  <div class="modal">
+    <h3 id="howto-title" data-i18n="howto">How to use</h3>
+    <p data-i18n="howtoP1">Use the two Hide Partner answers buttons at the top (one per person) so the other can’t peek. Then Show both and compare together.</p>
+    <p data-i18n="howtoP2">Differences are information, not failure. Use this as a conversation tool, not therapy or clinical advice.</p>
+    <p data-i18n-html="howtoP3">The main theme is <strong>farm vs skyscraper energy</strong> — quiet land / nature polarity versus dense city / ambitious skyline energy. Gaps on poles and ratings show up in “Show gaps.”</p>
+    <p data-i18n="howtoP4">Progress saves to this browser via Save (localStorage). Export JSON to keep a durable copy. Print for a paper-friendly view.</p>
+    <div class="modal-actions">
+      <button type="button" class="btn btn-primary" data-close="modal-howto" data-i18n="gotIt">Got it</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="modal-gaps" role="dialog" aria-modal="true" aria-labelledby="gaps-title">
+  <div class="modal">
+    <h3 id="gaps-title" data-i18n="gapsTitle">Biggest A / B gaps</h3>
+    <p id="gaps-intro" data-i18n="gapsIntroEmpty">Answer a few rated or pole questions on both sides, then reopen.</p>
+    <ul class="gap-list" id="gaps-list"></ul>
+    <div class="modal-actions">
+      <button type="button" class="btn btn-primary" data-close="modal-gaps" data-i18n="close">Close</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="modal-export" role="dialog" aria-modal="true" aria-labelledby="export-title">
+  <div class="modal">
+    <h3 id="export-title" data-i18n="exportTitle">Export / compare results</h3>
+    <p data-i18n="exportIntro">Copy or download your answers as JSON. Share the file so you can compare later or archive the conversation.</p>
+    <pre class="export-pre" id="export-json"></pre>
+    <div class="modal-actions">
+      <button type="button" class="btn" id="btn-copy-json" data-i18n="copyJson">Copy JSON</button>
+      <button type="button" class="btn btn-primary" id="btn-download-json" data-i18n="downloadJson">Download JSON</button>
+      <button type="button" class="btn" data-close="modal-export" data-i18n="close">Close</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast-root" role="region" aria-label="Notifications" aria-live="polite" data-i18n-aria="notifications"></div>
+
+<script>
+(function () {
+  const STORAGE_KEY = "life-alignment-questionnaire-v1";
+  const THEME_KEY = "el-theme";
+
+  const LANG_KEY = "life-align-lang-v1";
+
+  const SECTIONS_EL = {
+    values: "Αξίες — Τι μετράει περισσότερο",
+    vision: "Όραμα για το μέλλον",
+    place: "Τόπος διαμονής — ενέργεια φάρμας vs ουρανοξύστη",
+    career: "Καριέρα & φιλοδοξία",
+    money: "Χρήματα & τρόπος ζωής",
+    family: "Οικογένεια, παιδιά & ευρύτερος κύκλος",
+    rhythm: "Καθημερινός ρυθμός & ενέργεια",
+    social: "Κοινωνική ζωή",
+    health: "Υγεία & γήρανση στα σαράντα",
+    retire: "Συνταξιοδότηση & μακροπρόθεσμο παιχνίδι",
+    disagree: "Διαφωνία σε μεγάλες αποφάσεις ζωής",
+    dreams: "Υποστήριξη των ατομικών ονείρων του άλλου"
+  };
+
+  const Q_EL = {
+    1: { prompt: "Βαθμολόγησε 1–5: Πόσο σημαντική είναι η ελευθερία / αυτονομία για σένα;" },
+    2: { prompt: "Βαθμολόγησε 1–5: Πόσο σημαντική είναι η ασφάλεια και η προβλεψιμότητα;" },
+    3: { prompt: "Τι σημαίνει για σένα μια «καλή ζωή»;" },
+    4: { prompt: "Πού βρίσκεσαι σε αυτή την πολικότητα;", left: "Άνεση & ευκολία", right: "Αρχή & προσπάθεια" },
+    5: { prompt: "Περιέγραψε μια τυπική Τρίτη σε 5 χρόνια." },
+    6: { prompt: "Βαθμολόγησε 1–5: Πόσο ευθυγραμμισμένοι νιώθετε για το πού πάτε;" },
+    7: { prompt: "Πού βρίσκεσαι σε αυτή την πολικότητα;", left: "Σταθερή εμβάθυνση", right: "Τολμηρή επανεκκίνηση" },
+    8: { prompt: "Διάλεξε αυτό που σου ταιριάζει καλύτερα:", options: [
+      "Να μείνουν τα περισσότερα σταθερά",
+      "Αργές συνειδητές αλλαγές",
+      "Μία μεγάλη κίνηση τα επόμενα χρόνια",
+      "Συνεχής περιπέτεια / αλλαγές πορείας"
+    ]},
+    9: { prompt: "Πού βρίσκεσαι σε αυτή την πολικότητα;", left: "Ήσυχη φύση / γη", right: "Πυκνή πόλη / ορίζοντας" },
+    10: { prompt: "Διάλεξε ένα προτιμώμενο περιβάλλον:", options: [
+      "Εξοχή / φάρμα / χωριό",
+      "Μικρή πόλη",
+      "Προάστιο με χώρο",
+      "Μεσαία πόλη",
+      "Κέντρο μεγαλούπολης / πολυώροφο"
+    ]},
+    11: { prompt: "Βαθμολόγησε 1–5: Πόσο ανοιχτός/ή είσαι σε μετακόμιση;" },
+    12: { prompt: "Αν δεν υπήρχαν εμπόδια, πού θα ξυπνούσες;" },
+    13: { prompt: "Βαθμολόγησε 1–5: Πόσο κεντρική είναι η φιλοδοξία καριέρας στην ταυτότητά σου;" },
+    14: { prompt: "Πού βρίσκεσαι σε αυτή την πολικότητα;", left: "Λιγότερη ένταση / περισσότερο περιθώριο", right: "Περισσότερη φιλοδοξία / υψηλότερα διακυβεύματα" },
+    15: { prompt: "Πώς μοιάζει για σένα η «αρκετή επιτυχία»;" },
+    16: { prompt: "Πού βρίσκεσαι σε αυτή την πολικότητα;", left: "Αποταμίευση / επένδυση για αργότερα", right: "Ξόδεμα σε εμπειρίες τώρα" },
+    17: { prompt: "Βαθμολόγησε 1–5: Πόσο σημαντικό είναι να ζεις κάτω από τις δυνατότητές σου;" },
+    18: { prompt: "Διάλεξε μία στάση ως προς τα έξοδα τρόπου ζωής:", options: [
+      "Απλά & λιτά",
+      "Άνετα μεσαία",
+      "Περιστασιακά πολυτελή",
+      "Υψηλός τρόπος ζωής ως στόχος"
+    ]},
+    19: { prompt: "Μία συνήθεια με τα χρήματα που θα ήθελες να συμφωνήσετε ή να ξανασυζητήσετε:" },
+    20: { prompt: "Βαθμολόγησε 1–5: Πόσο κεντρική είναι η οικογενειακή ζωή με παιδιά;" },
+    21: { prompt: "Βαθμολόγησε 1–5: Πόσο σημαντική είναι η εβδομαδιαία επαφή με την ευρύτερη οικογένεια;" },
+    22: { prompt: "Πού βρίσκεσαι σε αυτή την πολικότητα;", left: "Με την ευρύτερη οικογένεια", right: "Μόνο εμείς / επιλεγμένος κύκλος" },
+    23: { prompt: "Για ποια οικογενειακή κουλτούρα θέλετε να σας γνωρίζουν;" },
+    24: { prompt: "Πού βρίσκεσαι σε αυτή την πολικότητα;", left: "Ήσυχη επαναφόρτιση στο σπίτι", right: "Έξω / κοινωνικά / ενεργά" },
+    25: { prompt: "Διάλεξε ένα μοτίβο Σαββατοκύριακου / ελεύθερου χρόνου:", options: [
+      "Κυρίως ξεκούραση & φωλιά",
+      "Μία έξοδος + ξεκούραση",
+      "Γεμάτο σχέδια",
+      "Μείγμα: ένα ήσυχο, ένα γεμάτο"
+    ]},
+    26: { prompt: "Περιέγραψε τον καθημερινό ρυθμό που νιώθει πιο «εμείς»." },
+    27: { prompt: "Βαθμολόγησε 1–5: Πόσο σημαντικός είναι ένας πλατύς κοινωνικός κύκλος;" },
+    28: { prompt: "Πού βρίσκεσαι σε αυτή την πολικότητα;", left: "Μόνος/η / μόνο με σύντροφο", right: "Με φίλους & ομάδες" },
+    29: { prompt: "Ποιους ή ποιες κοινότητες θέλεις περισσότερο στη ζωή σου;" },
+    30: { prompt: "Βαθμολόγησε 1–5: Πόσο υψηλή προτεραιότητα έχει η φυσική κατάσταση / κίνηση;" },
+    31: { prompt: "Πού βρίσκεσαι σε αυτή την πολικότητα;", left: "Ενεργός & πειθαρχημένος", right: "Ήπιος & χωρίς πίεση" },
+    32: { prompt: "Μία συνήθεια υγείας για την οποία θέλεις υποστήριξη από τον/την σύντροφο:" },
+    33: { prompt: "Πού βρίσκεσαι σε αυτή την πολικότητα;", left: "Ριζωμένη βάση στο σπίτι", right: "Ταξίδια / ζωή σε πολλούς τόπους" },
+    34: { prompt: "Βαθμολόγησε 1–5: Σημασία πρόωρης συνταξιοδότησης vs περισσότερη δουλειά (1 = πρόωρα, 5 = δουλειά περισσότερο)." },
+    35: { prompt: "«Όταν μεγαλώσουμε, ελπίζω να είμαστε το ζευγάρι που…»" },
+    36: { prompt: "Όταν διαφωνείτε σε μεγάλες αποφάσεις ζωής, ποια προσέγγιση σου ταιριάζει;", options: [
+      "Να μιλάμε μέχρι να βρούμε τρίτο δρόμο",
+      "Συμβιβασμός στη μέση",
+      "Εναλλαγή προτεραιοτήτων",
+      "Να οδηγεί όποιος επηρεάζεται περισσότερο",
+      "Εξωτερική συμβουλή"
+    ]},
+    37: { prompt: "Βαθμολόγησε 1–5: Πόσο πρόθυμος/η είσαι να δοκιμάσετε ένα χρονικά οριοθετημένο πείραμα;" },
+    38: { prompt: "Τι σε κάνει να νιώθεις σεβασμό όταν διαφέρουν οι προτιμήσεις;" },
+    39: { prompt: "Βαθμολόγησε 1–5: Πόσο σημαντικό είναι να προστατεύεται χώρος για προσωπικά όνειρα;" },
+    40: { prompt: "Πού βρίσκεσαι σε αυτή την πολικότητα;", left: "Ένταξη στο κοινό σχέδιο", right: "Προστασία παράλληλων διαδρομών" },
+    41: { prompt: "Ένα όνειρό σου που ελπίζεις να στηρίξει ο/η σύντροφός σου — και ένα δικό του/της που θα στηρίξεις εσύ:" }
+  };
+
+  const UI = {
+    en: {
+      titleShort: "How Do We Want to Live?",
+      howto: "How to use",
+      showGaps: "Show gaps",
+      save: "Save",
+      load: "Load",
+      export: "Export",
+      print: "Print",
+      reset: "Reset",
+      sections: "Sections",
+      themeTag: "Farm ↔ Skyscraper · lifestyle polarity",
+      subtitle: "Life Alignment Questionnaire for Couples in Their Forties",
+      intro: "Answer alone first (Partner A and Partner B). Then compare. Differences are information, not failure. This is a conversation tool, not therapy.",
+      partnerAName: "Partner A name",
+      partnerBName: "Partner B name",
+      partnerA: "Partner A",
+      partnerB: "Partner B",
+      date: "Date",
+      answeredSeparately: "Answered separately first?",
+      yes: "Yes",
+      mostly: "Mostly",
+      hideA: "Hide Partner A answers",
+      showA: "Show Partner A answers",
+      hideB: "Hide Partner B answers",
+      showB: "Show Partner B answers",
+      hidden: "Hidden",
+      after: "After",
+      afterNav: "After · Reflections",
+      reflectTitle: "Compare — Three reflection prompts",
+      reflect1: "1. Where did we land on the same page without trying?",
+      reflect2: "2. Where is the biggest farm ↔ skyscraper gap — and what would a “third way” look like?",
+      reflect3: "3. What is one small experiment we could try in the next 90 days?",
+      reflectPh1: "Shared answers…",
+      reflectPh2: "Gap + third way…",
+      reflectPh3: "One small experiment…",
+      footerNote: "Conversation tool only · Not clinical advice · 41 questions / 12 dimensions",
+      howtoP1: "Use the two Hide Partner answers buttons at the top (one per person) so the other can’t peek. Then Show both and compare together.",
+      howtoP2: "Differences are information, not failure. Use this as a conversation tool, not therapy or clinical advice.",
+      howtoP3: "The main theme is <strong>farm vs skyscraper energy</strong> — quiet land / nature polarity versus dense city / ambitious skyline energy. Gaps on poles and ratings show up in “Show gaps.”",
+      howtoP4: "Progress saves to this browser via Save (localStorage). Export JSON to keep a durable copy. Print for a paper-friendly view.",
+      gotIt: "Got it",
+      gapsTitle: "Biggest A / B gaps",
+      gapsIntroEmpty: "Answer a few rated or pole questions on both sides, then reopen.",
+      gapsNeedBoth: "Need both Partner A and B answers on rate/pole questions (gap ≥ 1) to summarize differences.",
+      gapsLargest: "Largest numeric differences between {a} and {b} (top {n}):",
+      close: "Close",
+      exportTitle: "Export / compare results",
+      exportIntro: "Copy or download your answers as JSON. Share the file so you can compare later or archive the conversation.",
+      copyJson: "Copy JSON",
+      downloadJson: "Download JSON",
+      notifications: "Notifications",
+      writeFreely: "Write freely…",
+      low: "Low",
+      high: "High",
+      progress: "{x} of {total} answered",
+      langBtn: "ΕΛ",
+      langAria: "Switch to Greek",
+      savedOk: "Saved to this browser",
+      saveFail: "Could not save (storage blocked)",
+      loadNone: "No saved answers found",
+      loadOk: "Loaded saved answers",
+      loadFail: "Could not load saved data",
+      resetConfirm: "Reset all answers on this page? This does not delete localStorage until you Save.",
+      resetOk: "Form reset",
+      jsonDl: "JSON downloaded",
+      copied: "Copied to clipboard",
+      copyFail: "Copy failed",
+      clipNone: "Clipboard not available",
+      themeToLight: "Switch to light theme",
+      themeToDark: "Switch to dark theme"
+    },
+    el: {
+      titleShort: "Πώς θέλουμε να ζήσουμε;",
+      howto: "Πώς να το χρησιμοποιήσετε",
+      showGaps: "Δείξε διαφορές",
+      save: "Αποθήκευση",
+      load: "Φόρτωση",
+      export: "Εξαγωγή",
+      print: "Εκτύπωση",
+      reset: "Επαναφορά",
+      sections: "Ενότητες",
+      themeTag: "Φάρμα ↔ Ουρανοξύστης · πολικότητα τρόπου ζωής",
+      subtitle: "Ερωτηματολόγιο ευθυγράμμισης ζωής για ζευγάρια στα σαράντα",
+      intro: "Απαντήστε πρώτα μόνοι (Σύντροφος Α και Σύντροφος Β). Μετά συγκρίνετε. Οι διαφορές είναι πληροφορία, όχι αποτυχία. Αυτό είναι εργαλείο συνομιλίας, όχι θεραπεία.",
+      partnerAName: "Όνομα συντρόφου Α",
+      partnerBName: "Όνομα συντρόφου Β",
+      partnerA: "Σύντροφος Α",
+      partnerB: "Σύντροφος Β",
+      date: "Ημερομηνία",
+      answeredSeparately: "Απαντήσατε χωριστά πρώτα;",
+      yes: "Ναι",
+      mostly: "Κυρίως",
+      hideA: "Απόκρυψη απαντήσεων Α",
+      showA: "Εμφάνιση απαντήσεων Α",
+      hideB: "Απόκρυψη απαντήσεων Β",
+      showB: "Εμφάνιση απαντήσεων Β",
+      hidden: "Κρυφό",
+      after: "Μετά",
+      afterNav: "Μετά · Προβληματισμός",
+      reflectTitle: "Μετά / Κοινές ερωτήσεις προβληματισμού",
+      reflect1: "1. Πού βρεθήκατε στην ίδια σελίδα χωρίς προσπάθεια;",
+      reflect2: "2. Πού είναι η μεγαλύτερη διαφορά φάρμας ↔ ουρανοξύστη — και πώς θα έμοιαζε ένας «τρίτος δρόμος»;",
+      reflect3: "3. Ποιο μικρό πείραμα θα μπορούσατε να δοκιμάσετε μέσα στις επόμενες 90 μέρες;",
+      reflectPh1: "Κοινές απαντήσεις…",
+      reflectPh2: "Διαφορά + τρίτος δρόμος…",
+      reflectPh3: "Ένα μικρό πείραμα…",
+      footerNote: "Μόνο εργαλείο συνομιλίας · Όχι κλινική συμβουλή · 41 ερωτήσεις / 12 διαστάσεις",
+      howtoP1: "Χρησιμοποιήστε τα δύο κουμπιά Απόκρυψης απαντήσεων στην κορυφή (ένα ανά άτομο) ώστε ο άλλος να μην κοιτάξει. Μετά εμφανίστε και τα δύο και συγκρίνετε μαζί.",
+      howtoP2: "Οι διαφορές είναι πληροφορία, όχι αποτυχία. Χρησιμοποιήστε το ως εργαλείο συνομιλίας, όχι ως θεραπεία ή κλινική συμβουλή.",
+      howtoP3: "Το κύριο θέμα είναι η <strong>ενέργεια φάρμας vs ουρανοξύστη</strong> — ήσυχη φύση / γη έναντι πυκνής πόλης / φιλόδοξου ορίζοντα. Οι διαφορές σε πολικότητες και βαθμολογίες φαίνονται στο «Δείξε διαφορές.»",
+      howtoP4: "Η πρόοδος αποθηκεύεται σε αυτόν τον περιηγητή με Αποθήκευση (localStorage). Εξάγετε JSON για μόνιμο αντίγραφο. Εκτυπώστε για φιλική προς το χαρτί προβολή.",
+      gotIt: "Το κατάλαβα",
+      gapsTitle: "Μεγαλύτερες διαφορές Α / Β",
+      gapsIntroEmpty: "Απαντήστε μερικές βαθμολογίες ή πολικότητες και από τις δύο πλευρές, μετά ανοίξτε ξανά.",
+      gapsNeedBoth: "Χρειάζονται απαντήσεις και από τον Σύντροφο Α και από τον Β σε βαθμολογίες/πολικότητες (διαφορά ≥ 1) για σύνοψη.",
+      gapsLargest: "Μεγαλύτερες αριθμητικές διαφορές μεταξύ {a} και {b} (κορυφαίες {n}):",
+      close: "Κλείσιμο",
+      exportTitle: "Εξαγωγή / σύγκριση αποτελεσμάτων",
+      exportIntro: "Αντιγράψτε ή κατεβάστε τις απαντήσεις ως JSON. Μοιραστείτε το αρχείο για αργότερη σύγκριση ή αρχειοθέτηση.",
+      copyJson: "Αντιγραφή JSON",
+      downloadJson: "Λήψη JSON",
+      notifications: "Ειδοποιήσεις",
+      writeFreely: "Γράψε ελεύθερα…",
+      low: "Χαμηλά",
+      high: "Υψηλά",
+      progress: "{x} από {total} απαντημένες",
+      langBtn: "EN",
+      langAria: "Αλλαγή σε Αγγλικά",
+      savedOk: "Αποθηκεύτηκε σε αυτόν τον περιηγητή",
+      saveFail: "Αδυναμία αποθήκευσης (αποκλεισμένη αποθήκευση)",
+      loadNone: "Δεν βρέθηκαν αποθηκευμένες απαντήσεις",
+      loadOk: "Φορτώθηκαν οι αποθηκευμένες απαντήσεις",
+      loadFail: "Αδυναμία φόρτωσης αποθηκευμένων δεδομένων",
+      resetConfirm: "Επαναφορά όλων των απαντήσεων σε αυτή τη σελίδα; Δεν διαγράφει το localStorage μέχρι να πατήσετε Αποθήκευση.",
+      resetOk: "Η φόρμα μηδενίστηκε",
+      jsonDl: "Το JSON κατέβηκε",
+      copied: "Αντιγράφηκε στο πρόχειρο",
+      copyFail: "Η αντιγραφή απέτυχε",
+      clipNone: "Το πρόχειρο δεν είναι διαθέσιμο",
+      themeToLight: "Αλλαγή σε φωτεινό θέμα",
+      themeToDark: "Αλλαγή σε σκοτεινό θέμα"
+    }
+  };
+
+  function getLang() {
+    try {
+      var v = localStorage.getItem(LANG_KEY);
+      return v === "el" ? "el" : "en";
+    } catch (e) {
+      return "en";
+    }
+  }
+  function setLang(lang) {
+    try { localStorage.setItem(LANG_KEY, lang === "el" ? "el" : "en"); } catch (e) {}
+  }
+  function t(key) {
+    var pack = UI[getLang()] || UI.en;
+    return (pack && pack[key] != null) ? pack[key] : (UI.en[key] || key);
+  }
+  function qText(q) {
+    var lang = getLang();
+    if (lang !== "el") {
+      return { prompt: q.prompt, left: q.left, right: q.right, options: q.options };
+    }
+    var el = Q_EL[q.n] || {};
+    return {
+      prompt: el.prompt || q.prompt,
+      left: el.left || q.left,
+      right: el.right || q.right,
+      options: el.options || q.options
+    };
+  }
+  function sectionTitle(s) {
+    if (getLang() === "el" && SECTIONS_EL[s.id]) return SECTIONS_EL[s.id];
+    return s.title;
+  }
+
+  const SECTIONS = [
+    { id: "values", num: "1", title: "Values — What Matters Most" },
+    { id: "vision", num: "2", title: "Vision for the Future" },
+    { id: "place", num: "3", title: "Place of Living — Farm vs Skyscraper Energy" },
+    { id: "career", num: "4", title: "Career & Ambition" },
+    { id: "money", num: "5", title: "Money & Lifestyle Spend" },
+    { id: "family", num: "6", title: "Family, Kids & Extended Circle" },
+    { id: "rhythm", num: "7", title: "Daily Rhythm & Energy" },
+    { id: "social", num: "8", title: "Social Life" },
+    { id: "health", num: "9", title: "Health & Aging in Our Forties" },
+    { id: "retire", num: "10", title: "Retirement & the Long Game" },
+    { id: "disagree", num: "11", title: "Disagreement on Big Life Choices" },
+    { id: "dreams", num: "12", title: "Supporting Each Other's Individual Dreams" }
+  ];
+
+  const QUESTIONS = [
+    { n: 1, sec: "values", type: "rate", prompt: "Rate 1–5: How important is freedom / autonomy to you?" },
+    { n: 2, sec: "values", type: "rate", prompt: "Rate 1–5: How important are security and predictability?" },
+    { n: 3, sec: "values", type: "text", prompt: "What does a “good life” mean to you?" },
+    { n: 4, sec: "values", type: "pole", prompt: "Where do you sit on this polarity?", left: "Comfort & ease", right: "Principle & stretch" },
+    { n: 5, sec: "vision", type: "text", prompt: "Describe a typical Tuesday in 5 years." },
+    { n: 6, sec: "vision", type: "rate", prompt: "Rate 1–5: How aligned do you feel on where you're headed?" },
+    { n: 7, sec: "vision", type: "pole", prompt: "Where do you sit on this polarity?", left: "Steady deepening", right: "Bold reinvention" },
+    { n: 8, sec: "vision", type: "choice", prompt: "Choose one that fits best:", options: [
+      "Keep most things stable",
+      "Slow intentional shifts",
+      "One big move in the next few years",
+      "Ongoing adventure / pivots"
+    ]},
+    { n: 9, sec: "place", type: "pole", prompt: "Where do you sit on this polarity?", left: "Quiet land / nature", right: "Dense city / skyline" },
+    { n: 10, sec: "place", type: "choice", prompt: "Choose one preferred setting:", options: [
+      "Rural / farm / village",
+      "Small town",
+      "Suburb with space",
+      "Mid-size city",
+      "Big-city core / high-rise"
+    ]},
+    { n: 11, sec: "place", type: "rate", prompt: "Rate 1–5: How open are you to relocating?" },
+    { n: 12, sec: "place", type: "text", prompt: "If there were no obstacles, where would you wake up?" },
+    { n: 13, sec: "career", type: "rate", prompt: "Rate 1–5: How central is career ambition to your identity?" },
+    { n: 14, sec: "career", type: "pole", prompt: "Where do you sit on this polarity?", left: "Less intense / more margin", right: "More ambitious / higher stakes" },
+    { n: 15, sec: "career", type: "text", prompt: "What does “enough success” look like for you?" },
+    { n: 16, sec: "money", type: "pole", prompt: "Where do you sit on this polarity?", left: "Save / invest for later", right: "Spend on experiences now" },
+    { n: 17, sec: "money", type: "rate", prompt: "Rate 1–5: How important is living below your means?" },
+    { n: 18, sec: "money", type: "choice", prompt: "Choose one lifestyle spend posture:", options: [
+      "Simple & frugal",
+      "Comfortable mid-range",
+      "Occasionally luxurious",
+      "High lifestyle as a goal"
+    ]},
+    { n: 19, sec: "money", type: "text", prompt: "One money habit you'd like to agree on or renegotiate:" },
+    { n: 20, sec: "family", type: "rate", prompt: "Rate 1–5: How central is family life with children?" },
+    { n: 21, sec: "family", type: "rate", prompt: "Rate 1–5: How important is weekly contact with extended family?" },
+    { n: 22, sec: "family", type: "pole", prompt: "Where do you sit on this polarity?", left: "With extended family", right: "Just us / chosen circle" },
+    { n: 23, sec: "family", type: "text", prompt: "What family culture do you want to be known for?" },
+    { n: 24, sec: "rhythm", type: "pole", prompt: "Where do you sit on this polarity?", left: "Quiet home recharge", right: "Out / social / active" },
+    { n: 25, sec: "rhythm", type: "choice", prompt: "Choose one weekend / free-time pattern:", options: [
+      "Mostly rest & nest",
+      "One outing + rest",
+      "Packed with plans",
+      "Mix: one slow, one full"
+    ]},
+    { n: 26, sec: "rhythm", type: "text", prompt: "Describe the daily rhythm that feels most “us.”" },
+    { n: 27, sec: "social", type: "rate", prompt: "Rate 1–5: How important is a wide social circle?" },
+    { n: 28, sec: "social", type: "pole", prompt: "Where do you sit on this polarity?", left: "Alone / with partner only", right: "With friends & groups" },
+    { n: 29, sec: "social", type: "text", prompt: "Who or which communities do you want more of?" },
+    { n: 30, sec: "health", type: "rate", prompt: "Rate 1–5: How high a priority is fitness / movement?" },
+    { n: 31, sec: "health", type: "pole", prompt: "Where do you sit on this polarity?", left: "Active & disciplined", right: "Gentle & low-pressure" },
+    { n: 32, sec: "health", type: "text", prompt: "A health habit you want partner support with:" },
+    { n: 33, sec: "retire", type: "pole", prompt: "Where do you sit on this polarity?", left: "Rooted home base", right: "Travel / multi-place living" },
+    { n: 34, sec: "retire", type: "rate", prompt: "Rate 1–5: Importance of retiring early vs working longer (1 = early, 5 = work longer)." },
+    { n: 35, sec: "retire", type: "text", prompt: "“When we're older, I hope we're the kind of couple who…”" },
+    { n: 36, sec: "disagree", type: "choice", prompt: "When you disagree on big life choices, which approach fits you?", options: [
+      "Keep talking until third way",
+      "Compromise halfway",
+      "Take turns prioritizing",
+      "Let the more affected person lead",
+      "Seek outside counsel"
+    ]},
+    { n: 37, sec: "disagree", type: "rate", prompt: "Rate 1–5: How willing are you to try a time-boxed experiment?" },
+    { n: 38, sec: "disagree", type: "text", prompt: "What helps you feel respected when preferences differ?" },
+    { n: 39, sec: "dreams", type: "rate", prompt: "Rate 1–5: How important is protecting space for personal dreams?" },
+    { n: 40, sec: "dreams", type: "pole", prompt: "Where do you sit on this polarity?", left: "Integrate into shared plan", right: "Protect parallel tracks" },
+    { n: 41, sec: "dreams", type: "text", prompt: "One dream you hope your partner champions — and one of theirs you'll champion:" }
+  ];
+
+  const SUN = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>';
+  const MOON = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+
+  function toast(msg, type) {
+    type = type || "info";
+    const root = document.getElementById("toast-root");
+    const el = document.createElement("div");
+    el.className = "toast " + type;
+    el.textContent = msg;
+    root.appendChild(el);
+    setTimeout(function () {
+      el.style.opacity = "0";
+      el.style.transition = "opacity 0.2s";
+      setTimeout(function () { el.remove(); }, 220);
+    }, 3200);
+  }
+
+  function openModal(id) {
+    document.getElementById(id).classList.add("open");
+  }
+  function closeModal(id) {
+    document.getElementById(id).classList.remove("open");
+  }
+
+  function partnerName(which) {
+    const el = document.getElementById(which === "a" ? "partner-a-name" : "partner-b-name");
+    const v = (el && el.value.trim()) || "";
+    return v || (which === "a" ? t("partnerA") : t("partnerB"));
+  }
+
+  function renderRate(n, partner) {
+    var html = '<div class="rate-group" data-q="' + n + '" data-partner="' + partner + '">';
+    for (var i = 1; i <= 5; i++) {
+      html += '<button type="button" class="rate-btn" data-val="' + i + '" aria-label="Rate ' + i + '">' + i + "</button>";
+    }
+    html += '</div><div class="rate-hint"><span data-rate-low>Low</span><span data-rate-high>High</span></div>';
+    return html;
+  }
+
+  function renderPole(n, partner, left, right) {
+    return (
+      '<div class="pole">' +
+      '<div class="pole-ends"><span>' + escapeHtml(left) + "</span><span>" + escapeHtml(right) + "</span></div>" +
+      '<input type="range" min="1" max="5" step="1" value="" data-q="' + n + '" data-partner="' + partner + '" data-pole />' +
+      '<div class="pole-val" data-pole-val="' + n + '-' + partner + '">—</div>' +
+      "</div>"
+    );
+  }
+
+  function renderChoice(n, partner, options) {
+    var html = '<div class="choice-group">';
+    options.forEach(function (opt, idx) {
+      var id = "q" + n + "-" + partner + "-" + idx;
+      html +=
+        '<label class="choice-chip"><input type="radio" name="q' + n + "-" + partner + '" value="' +
+        escapeAttr(opt) + '" data-q="' + n + '" data-partner="' + partner + '" id="' + id + '" />' +
+        "<span>" + escapeHtml(opt) + "</span></label>";
+    });
+    html += "</div>";
+    return html;
+  }
+
+  function renderText(n, partner) {
+    return (
+      '<textarea data-q="' + n + '" data-partner="' + partner + '" placeholder="Write freely…" rows="3"></textarea>'
+    );
+  }
+
+  function escapeHtml(s) {
+    return String(s)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+  function escapeAttr(s) {
+    return escapeHtml(s);
+  }
+
+  function dualControls(q) {
+    var aInner, bInner;
+    if (q.type === "rate") {
+      aInner = renderRate(q.n, "a");
+      bInner = renderRate(q.n, "b");
+    } else if (q.type === "pole") {
+      aInner = renderPole(q.n, "a", q.left, q.right);
+      bInner = renderPole(q.n, "b", q.left, q.right);
+    } else if (q.type === "choice") {
+      aInner = renderChoice(q.n, "a", q.options);
+      bInner = renderChoice(q.n, "b", q.options);
+    } else {
+      aInner = renderText(q.n, "a");
+      bInner = renderText(q.n, "b");
+    }
+    return (
+      '<div class="dual">' +
+      '<div class="partner-col pa" data-partner-col="a"><div class="partner-label" data-label-a>Partner A</div><div class="partner-answers">' + aInner + "</div></div>" +
+      '<div class="partner-col pb" data-partner-col="b"><div class="partner-label" data-label-b>Partner B</div><div class="partner-answers">' + bInner + "</div></div>" +
+      "</div>"
+    );
+  }
+
+  function buildUI() {
+    var nav = document.getElementById("side-nav");
+    var pills = document.getElementById("mobile-pills");
+    var root = document.getElementById("sections-root");
+    var bySec = {};
+    QUESTIONS.forEach(function (q) {
+      (bySec[q.sec] = bySec[q.sec] || []).push(q);
+    });
+
+    SECTIONS.forEach(function (s) {
+      var title = sectionTitle(s);
+      var shortTitle = title.split("—")[0].trim();
+      var a = document.createElement("a");
+      a.href = "#sec-" + s.id;
+      a.textContent = s.num + ". " + shortTitle;
+      a.dataset.sec = s.id;
+      a.dataset.navSec = s.id;
+      nav.appendChild(a);
+
+      var p = document.createElement("a");
+      p.href = "#sec-" + s.id;
+      p.textContent = s.num + " · " + shortTitle.split(/\s|\u00a0/)[0];
+      p.dataset.sec = s.id;
+      p.dataset.navPill = s.id;
+      pills.appendChild(p);
+
+      var sec = document.createElement("section");
+      sec.className = "section";
+      sec.id = "sec-" + s.id;
+      sec.dataset.section = s.id;
+      sec.innerHTML =
+        '<div class="section-head"><span class="section-num">' +
+        s.num +
+        '</span><h3 data-sec-title="' +
+        s.id +
+        '">' +
+        escapeHtml(title) +
+        "</h3></div>";
+      (bySec[s.id] || []).forEach(function (q) {
+        var qt = qText(q);
+        var card = document.createElement("article");
+        card.className = "q-card";
+        card.dataset.qn = String(q.n);
+        card.innerHTML =
+          '<div class="q-num">Q' +
+          q.n +
+          '</div><p class="q-prompt">' +
+          escapeHtml(qt.prompt) +
+          "</p>" +
+          dualControls(q);
+        sec.appendChild(card);
+      });
+      root.appendChild(sec);
+    });
+
+    var ra = document.createElement("a");
+    ra.href = "#sec-reflect";
+    ra.textContent = t("afterNav");
+    ra.dataset.navReflect = "1";
+    nav.appendChild(ra);
+    var rp = document.createElement("a");
+    rp.href = "#sec-reflect";
+    rp.textContent = t("after");
+    rp.dataset.navReflectPill = "1";
+    pills.appendChild(rp);
+  }
+
+  function applyLanguage() {
+    var lang = getLang();
+    document.documentElement.lang = lang === "el" ? "el" : "en";
+    document.title = t("titleShort") + " — " + t("subtitle");
+    document.body.setAttribute("data-hidden-label", t("hidden"));
+
+    document.querySelectorAll("[data-i18n]").forEach(function (el) {
+      var key = el.getAttribute("data-i18n");
+      if (key && UI.en[key] != null) el.textContent = t(key);
+    });
+    document.querySelectorAll("[data-i18n-html]").forEach(function (el) {
+      var key = el.getAttribute("data-i18n-html");
+      if (key && UI.en[key] != null) el.innerHTML = t(key);
+    });
+    document.querySelectorAll("[data-i18n-title]").forEach(function (el) {
+      var key = el.getAttribute("data-i18n-title");
+      if (key) el.setAttribute("title", t(key));
+    });
+    document.querySelectorAll("[data-i18n-placeholder]").forEach(function (el) {
+      var key = el.getAttribute("data-i18n-placeholder");
+      if (key) el.setAttribute("placeholder", t(key));
+    });
+    document.querySelectorAll("[data-i18n-aria]").forEach(function (el) {
+      var key = el.getAttribute("data-i18n-aria");
+      if (key) el.setAttribute("aria-label", t(key));
+    });
+
+    var langBtn = document.getElementById("lang-toggle");
+    if (langBtn) {
+      langBtn.textContent = t("langBtn");
+      langBtn.setAttribute("aria-label", t("langAria"));
+      langBtn.setAttribute("title", t("langAria"));
+    }
+
+    SECTIONS.forEach(function (s) {
+      var title = sectionTitle(s);
+      var shortTitle = title.split("—")[0].trim();
+      var h = document.querySelector('[data-sec-title="' + s.id + '"]');
+      if (h) h.textContent = title;
+      var navA = document.querySelector('#side-nav a[data-nav-sec="' + s.id + '"]');
+      if (navA) navA.textContent = s.num + ". " + shortTitle;
+      var pill = document.querySelector('#mobile-pills a[data-nav-pill="' + s.id + '"]');
+      if (pill) pill.textContent = s.num + " · " + shortTitle.split(/\s|\u00a0/)[0];
+    });
+    var nr = document.querySelector('#side-nav a[data-nav-reflect]');
+    if (nr) nr.textContent = t("afterNav");
+    var nrp = document.querySelector('#mobile-pills a[data-nav-reflect-pill]');
+    if (nrp) nrp.textContent = t("after");
+
+    QUESTIONS.forEach(function (q) {
+      var qt = qText(q);
+      var card = document.querySelector('.q-card[data-qn="' + q.n + '"]');
+      if (!card) return;
+      var promptEl = card.querySelector(".q-prompt");
+      if (promptEl) promptEl.textContent = qt.prompt;
+      if (q.type === "pole") {
+        card.querySelectorAll(".pole-ends").forEach(function (ends) {
+          var spans = ends.querySelectorAll("span");
+          if (spans[0]) spans[0].textContent = qt.left;
+          if (spans[1]) spans[1].textContent = qt.right;
+        });
+      }
+      if (q.type === "choice" && q.options) {
+        card.querySelectorAll(".choice-group").forEach(function (group) {
+          var labels = group.querySelectorAll(".choice-chip");
+          labels.forEach(function (lab, idx) {
+            var span = lab.querySelector("span");
+            var input = lab.querySelector('input[type="radio"]');
+            if (input && q.options[idx] != null) input.value = q.options[idx];
+            if (span && qt.options && qt.options[idx] != null) span.textContent = qt.options[idx];
+          });
+        });
+      }
+      if (q.type === "text") {
+        card.querySelectorAll("textarea[data-q]").forEach(function (ta) {
+          ta.setAttribute("placeholder", t("writeFreely"));
+        });
+      }
+      if (q.type === "rate") {
+        card.querySelectorAll("[data-rate-low]").forEach(function (el) { el.textContent = t("low"); });
+        card.querySelectorAll("[data-rate-high]").forEach(function (el) { el.textContent = t("high"); });
+        card.querySelectorAll(".rate-btn").forEach(function (btn) {
+          var v = btn.getAttribute("data-val");
+          btn.setAttribute("aria-label", (getLang() === "el" ? "Βαθμός " : "Rate ") + v);
+        });
+      }
+    });
+
+    applyHideState();
+    updatePartnerLabels();
+    updateProgress();
+
+    var mode = document.documentElement.getAttribute("data-mode") || "light";
+    var themeBtn = document.getElementById("theme-toggle");
+    if (themeBtn) {
+      themeBtn.setAttribute("aria-label", mode === "dark" ? t("themeToLight") : t("themeToDark"));
+    }
+  }
+
+
+  var HIDE_KEY = "life-align-hide-v1";
+  function getHideState() {
+    try {
+      var raw = localStorage.getItem(HIDE_KEY);
+      if (!raw) return { a: false, b: false };
+      var o = JSON.parse(raw);
+      return { a: !!o.a, b: !!o.b };
+    } catch (e) {
+      return { a: false, b: false };
+    }
+  }
+  function setHideState(state) {
+    try { localStorage.setItem(HIDE_KEY, JSON.stringify(state)); } catch (e) {}
+  }
+  function applyHideState() {
+    var state = getHideState();
+    document.body.classList.toggle("partner-a-hidden", !!state.a);
+    document.body.classList.toggle("partner-b-hidden", !!state.b);
+    var btnA = document.getElementById("hide-partner-a");
+    var btnB = document.getElementById("hide-partner-b");
+    if (btnA) {
+      btnA.textContent = state.a ? t("showA") : t("hideA");
+      btnA.setAttribute("aria-pressed", state.a ? "true" : "false");
+    }
+    if (btnB) {
+      btnB.textContent = state.b ? t("showB") : t("hideB");
+      btnB.setAttribute("aria-pressed", state.b ? "true" : "false");
+    }
+  }
+
+
+  function updatePartnerLabels() {
+    document.querySelectorAll("[data-label-a]").forEach(function (el) {
+      el.textContent = partnerName("a");
+    });
+    document.querySelectorAll("[data-label-b]").forEach(function (el) {
+      el.textContent = partnerName("b");
+    });
+  }
+
+  function isAnswered(q) {
+    var a = getPartnerAnswer(q.n, "a", q.type);
+    var b = getPartnerAnswer(q.n, "b", q.type);
+    return !!(a || b);
+  }
+
+  function getPartnerAnswer(n, partner, type) {
+    if (type === "rate") {
+      var btn = document.querySelector(
+        '.rate-group[data-q="' + n + '"][data-partner="' + partner + '"] .rate-btn.selected'
+      );
+      return btn ? btn.getAttribute("data-val") : "";
+    }
+    if (type === "pole") {
+      var range = document.querySelector(
+        'input[type="range"][data-q="' + n + '"][data-partner="' + partner + '"]'
+      );
+      if (!range) return "";
+      if (!range.hasAttribute("data-touched")) return "";
+      return range.value;
+    }
+    if (type === "choice") {
+      var checked = document.querySelector(
+        'input[type="radio"][data-q="' + n + '"][data-partner="' + partner + '"]:checked'
+      );
+      return checked ? checked.value : "";
+    }
+    var ta = document.querySelector(
+      'textarea[data-q="' + n + '"][data-partner="' + partner + '"]'
+    );
+    return ta && ta.value.trim() ? ta.value.trim() : "";
+  }
+
+  function updateProgress() {
+    var answered = 0;
+    QUESTIONS.forEach(function (q) {
+      if (isAnswered(q)) answered++;
+    });
+    var pct = Math.round((answered / QUESTIONS.length) * 100);
+    document.getElementById("progress-label").textContent = t("progress")
+      .replace("{x}", String(answered))
+      .replace("{total}", String(QUESTIONS.length));
+    document.getElementById("progress-pct").textContent = pct + "%";
+    document.getElementById("progress-fill").style.width = pct + "%";
+  }
+
+  function collectState() {
+    var answers = {};
+    QUESTIONS.forEach(function (q) {
+      answers[q.n] = {
+        type: q.type,
+        prompt: q.prompt,
+        a: getPartnerAnswer(q.n, "a", q.type),
+        b: getPartnerAnswer(q.n, "b", q.type)
+      };
+      if (q.left) {
+        answers[q.n].left = q.left;
+        answers[q.n].right = q.right;
+      }
+    });
+    return {
+      version: 1,
+      title: "How Do We Want to Live?",
+      partnerA: document.getElementById("partner-a-name").value,
+      partnerB: document.getElementById("partner-b-name").value,
+      date: document.getElementById("q-date").value,
+      answeredSeparatelyYes: document.getElementById("sep-yes").checked,
+      answeredSeparatelyMostly: document.getElementById("sep-mostly").checked,
+      answers: answers,
+      reflections: {
+        1: document.getElementById("reflect-1").value,
+        2: document.getElementById("reflect-2").value,
+        3: document.getElementById("reflect-3").value
+      },
+      savedAt: new Date().toISOString()
+    };
+  }
+
+  function applyState(state) {
+    if (!state) return;
+    document.getElementById("partner-a-name").value = state.partnerA || "";
+    document.getElementById("partner-b-name").value = state.partnerB || "";
+    document.getElementById("q-date").value = state.date || "";
+    document.getElementById("sep-yes").checked = !!state.answeredSeparatelyYes;
+    document.getElementById("sep-mostly").checked = !!state.answeredSeparatelyMostly;
+    updatePartnerLabels();
+
+    QUESTIONS.forEach(function (q) {
+      var ans = state.answers && state.answers[q.n];
+      if (!ans) return;
+      ["a", "b"].forEach(function (partner) {
+        var val = ans[partner];
+        if (val === undefined || val === null || val === "") return;
+        if (q.type === "rate") {
+          var group = document.querySelector(
+            '.rate-group[data-q="' + q.n + '"][data-partner="' + partner + '"]'
+          );
+          if (!group) return;
+          group.querySelectorAll(".rate-btn").forEach(function (b) {
+            b.classList.toggle("selected", b.getAttribute("data-val") === String(val));
+          });
+        } else if (q.type === "pole") {
+          var range = document.querySelector(
+            'input[type="range"][data-q="' + q.n + '"][data-partner="' + partner + '"]'
+          );
+          if (!range) return;
+          range.value = String(val);
+          range.setAttribute("data-touched", "1");
+          var lab = document.querySelector('[data-pole-val="' + q.n + "-" + partner + '"]');
+          if (lab) lab.textContent = String(val);
+        } else if (q.type === "choice") {
+          var radios = document.querySelectorAll(
+            'input[type="radio"][data-q="' + q.n + '"][data-partner="' + partner + '"]'
+          );
+          radios.forEach(function (r) {
+            r.checked = r.value === val;
+          });
+        } else {
+          var ta = document.querySelector(
+            'textarea[data-q="' + q.n + '"][data-partner="' + partner + '"]'
+          );
+          if (ta) ta.value = val;
+        }
+      });
+    });
+
+    if (state.reflections) {
+      document.getElementById("reflect-1").value = state.reflections[1] || "";
+      document.getElementById("reflect-2").value = state.reflections[2] || "";
+      document.getElementById("reflect-3").value = state.reflections[3] || "";
+    }
+    updateProgress();
+  }
+
+  function save() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(collectState()));
+      toast(t("savedOk"), "success");
+    } catch (e) {
+      toast(t("saveFail"), "error");
+    }
+  }
+
+  function load() {
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) {
+        toast(t("loadNone"), "warning");
+        return;
+      }
+      applyState(JSON.parse(raw));
+      toast(t("loadOk"), "success");
+    } catch (e) {
+      toast(t("loadFail"), "error");
+    }
+  }
+
+  function resetAll() {
+    if (!confirm(t("resetConfirm"))) return;
+    document.getElementById("partner-a-name").value = "";
+    document.getElementById("partner-b-name").value = "";
+    document.getElementById("q-date").value = "";
+    document.getElementById("sep-yes").checked = false;
+    document.getElementById("sep-mostly").checked = false;
+    document.querySelectorAll(".rate-btn.selected").forEach(function (b) {
+      b.classList.remove("selected");
+    });
+    document.querySelectorAll('input[type="range"][data-pole]').forEach(function (r) {
+      r.value = 3;
+      r.removeAttribute("data-touched");
+      var lab = document.querySelector(
+        '[data-pole-val="' + r.getAttribute("data-q") + "-" + r.getAttribute("data-partner") + '"]'
+      );
+      if (lab) lab.textContent = "—";
+    });
+    document.querySelectorAll('input[type="radio"]').forEach(function (r) {
+      r.checked = false;
+    });
+    document.querySelectorAll("textarea").forEach(function (t) {
+      t.value = "";
+    });
+    updatePartnerLabels();
+    updateProgress();
+    toast(t("resetOk"), "info");
+  }
+
+  function numericGaps() {
+    var gaps = [];
+    QUESTIONS.forEach(function (q) {
+      if (q.type !== "rate" && q.type !== "pole") return;
+      var a = getPartnerAnswer(q.n, "a", q.type);
+      var b = getPartnerAnswer(q.n, "b", q.type);
+      if (!a || !b) return;
+      var na = Number(a), nb = Number(b);
+      var delta = Math.abs(na - nb);
+      if (delta >= 1) {
+        var qt = qText(q);
+        gaps.push({
+          n: q.n,
+          prompt: qt.prompt,
+          a: na,
+          b: nb,
+          delta: delta,
+          left: qt.left,
+          right: qt.right
+        });
+      }
+    });
+    gaps.sort(function (x, y) { return y.delta - x.delta; });
+    return gaps;
+  }
+
+  function showGaps() {
+    var gaps = numericGaps();
+    var list = document.getElementById("gaps-list");
+    var intro = document.getElementById("gaps-intro");
+    list.innerHTML = "";
+    if (!gaps.length) {
+      intro.textContent = t("gapsNeedBoth");
+      openModal("modal-gaps");
+      return;
+    }
+    intro.textContent = t("gapsLargest")
+      .replace("{a}", partnerName("a"))
+      .replace("{b}", partnerName("b"))
+      .replace("{n}", String(Math.min(8, gaps.length)));
+    gaps.slice(0, 8).forEach(function (g) {
+      var li = document.createElement("li");
+      var extra = g.left
+        ? " <span style=\"color:var(--el-ink-faint);font-size:0.8rem\">(" +
+          escapeHtml(g.left) +
+          " ↔ " +
+          escapeHtml(g.right) +
+          ")</span>"
+        : "";
+      li.innerHTML =
+        '<div><strong>Q' +
+        g.n +
+        "</strong> · " +
+        escapeHtml(g.prompt) +
+        extra +
+        '</div><div style="margin-top:var(--el-space-2)">' +
+        escapeHtml(partnerName("a")) +
+        ": " +
+        g.a +
+        " · " +
+        escapeHtml(partnerName("b")) +
+        ": " +
+        g.b +
+        ' · <span class="delta">Δ ' +
+        g.delta +
+        "</span></div>";
+      list.appendChild(li);
+    });
+    openModal("modal-gaps");
+  }
+
+  function showExport() {
+    var state = collectState();
+    document.getElementById("export-json").textContent = JSON.stringify(state, null, 2);
+    openModal("modal-export");
+  }
+
+  function downloadJson() {
+    var state = collectState();
+    var blob = new Blob([JSON.stringify(state, null, 2)], { type: "application/json" });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = "life-alignment-questionnaire.json";
+    a.click();
+    URL.revokeObjectURL(url);
+    toast(t("jsonDl"), "success");
+  }
+
+  function copyJson() {
+    var text = document.getElementById("export-json").textContent;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(
+        function () { toast(t("copied"), "success"); },
+        function () { toast(t("copyFail"), "error"); }
+      );
+    } else {
+      toast(t("clipNone"), "warning");
+    }
+  }
+
+  /* Theme toggle (elian/ui pattern) */
+  function getSystemMode() {
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  }
+  function getSavedMode() {
+    try {
+      var v = localStorage.getItem(THEME_KEY);
+      return v === "dark" || v === "light" ? v : null;
+    } catch (e) {
+      return null;
+    }
+  }
+  function applyMode(mode) {
+    document.documentElement.setAttribute("data-mode", mode);
+    var btn = document.getElementById("theme-toggle");
+    if (btn) {
+      btn.innerHTML = mode === "dark" ? SUN : MOON;
+      btn.setAttribute(
+        "aria-label",
+        mode === "dark" ? t("themeToLight") : t("themeToDark")
+      );
+    }
+  }
+  function initTheme() {
+    var mode = getSavedMode() || getSystemMode();
+    applyMode(mode);
+    document.getElementById("theme-toggle").addEventListener("click", function () {
+      var next = document.documentElement.getAttribute("data-mode") === "dark" ? "light" : "dark";
+      applyMode(next);
+      try { localStorage.setItem(THEME_KEY, next); } catch (e) {}
+    });
+    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", function () {
+      if (!getSavedMode()) applyMode(getSystemMode());
+    });
+  }
+
+  function wireEvents() {
+    applyHideState();
+    var langToggle = document.getElementById("lang-toggle");
+    if (langToggle) {
+      langToggle.addEventListener("click", function () {
+        setLang(getLang() === "el" ? "en" : "el");
+        applyLanguage();
+      });
+    }
+    ["hide-partner-a", "hide-partner-b"].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      el.addEventListener("click", function () {
+        var partner = el.getAttribute("data-hide-partner");
+        var state = getHideState();
+        state[partner] = !state[partner];
+        setHideState(state);
+        applyHideState();
+      });
+    });
+    document.getElementById("sections-root").addEventListener("click", function (e) {
+
+      var btn = e.target.closest(".rate-btn");
+      if (!btn) return;
+      var group = btn.closest(".rate-group");
+      group.querySelectorAll(".rate-btn").forEach(function (b) {
+        b.classList.remove("selected");
+      });
+      btn.classList.add("selected");
+      updateProgress();
+    });
+
+    document.getElementById("sections-root").addEventListener("input", function (e) {
+      var t = e.target;
+      if (t.matches('input[type="range"][data-pole]')) {
+        t.setAttribute("data-touched", "1");
+        var lab = document.querySelector(
+          '[data-pole-val="' + t.getAttribute("data-q") + "-" + t.getAttribute("data-partner") + '"]'
+        );
+        if (lab) lab.textContent = t.value;
+        updateProgress();
+      }
+      if (t.matches("textarea[data-q]")) updateProgress();
+    });
+    document.getElementById("sections-root").addEventListener("change", function (e) {
+      if (e.target.matches('input[type="radio"]')) updateProgress();
+    });
+
+    ["partner-a-name", "partner-b-name"].forEach(function (id) {
+      document.getElementById(id).addEventListener("input", updatePartnerLabels);
+    });
+
+    document.getElementById("btn-howto").addEventListener("click", function () {
+      openModal("modal-howto");
+    });
+    document.getElementById("btn-gaps").addEventListener("click", showGaps);
+    document.getElementById("btn-save").addEventListener("click", save);
+    document.getElementById("btn-load").addEventListener("click", load);
+    document.getElementById("btn-export").addEventListener("click", showExport);
+    document.getElementById("btn-print").addEventListener("click", function () {
+      window.print();
+    });
+    document.getElementById("btn-reset").addEventListener("click", resetAll);
+    document.getElementById("btn-copy-json").addEventListener("click", copyJson);
+    document.getElementById("btn-download-json").addEventListener("click", downloadJson);
+
+    document.querySelectorAll("[data-close]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        closeModal(btn.getAttribute("data-close"));
+      });
+    });
+    document.querySelectorAll(".modal-backdrop").forEach(function (bd) {
+      bd.addEventListener("click", function (e) {
+        if (e.target === bd) bd.classList.remove("open");
+      });
+    });
+
+    /* sticky active section */
+    var links = document.querySelectorAll("#side-nav a, #mobile-pills a");
+    var observer = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (en) {
+          if (!en.isIntersecting) return;
+          var id = en.target.id.replace(/^sec-/, "");
+          links.forEach(function (a) {
+            a.classList.toggle("active", a.getAttribute("href") === "#sec-" + id);
+          });
+        });
+      },
+      { rootMargin: "-30% 0px -55% 0px", threshold: 0 }
+    );
+    document.querySelectorAll(".section").forEach(function (s) {
+      observer.observe(s);
+    });
+  }
+
+  buildUI();
+  initTheme();
+  wireEvents();
+  updatePartnerLabels();
+  updateProgress();
+
+  /* Auto-load if present */
+  try {
+    var raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) applyState(JSON.parse(raw));
+  } catch (e) {}
+
+  applyLanguage();
+
+  /* First-visit intro */
+  try {
+    if (!localStorage.getItem(STORAGE_KEY + "-seen-intro")) {
+      openModal("modal-howto");
+      localStorage.setItem(STORAGE_KEY + "-seen-intro", "1");
+    }
+  } catch (e) {
+    openModal("modal-howto");
+  }
+})();
+</script>
+</body>
+</html>
