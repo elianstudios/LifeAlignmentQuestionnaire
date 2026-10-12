@@ -25,3 +25,9 @@ python3 -m http.server
 
 Netlify/deployment is handled separately by Ninos — this folder only needs a
 static host pointed at `index.html`.
+
+## Preview notes (harvest-life-alignment)
+
+- Footer no longer shows question or section counts (public copy rule).
+- Page is `noindex` and has a plain description. Remove the `robots` line once Ninos approves publishing it as a free Andorius extra.
+- Still a conversation tool only; it makes no health or therapy claims. Section 9 ("Health & Aging") asks about habits, not conditions.
